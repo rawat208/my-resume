@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deepak Portfolio</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+
+<style>
+/* ------------------- GENERAL STYLES ------------------- */
+body{margin:0;font-family:Arial,sans-serif;background:#0f172a;color:white;scroll-behavior:smooth;transition:0.3s;}
+.light{background:#fff;color:#111;}
+.light nav{background:#ffffffcc;}
+.light .card,.light .testimonial,.light .contact-card{background:#f3f4f6;}
+.light .skill-bar{background:#ddd;}
+#tsparticles{position:fixed;width:100%;height:100%;z-index:-1;}
+.cursor{position:fixed;width:20px;height:20px;border-radius:50%;background:#22d3ee;pointer-events:none;mix-blend-mode:difference;}
+
+/* ------------------- NAVBAR ------------------- */
+nav{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:15px 30px;background:#0008;z-index:10;transition:top 0.3s;}
+nav h2{color:#8b5cf6;}
+nav ul{display:flex;gap:20px;list-style:none;padding:0;margin:0;}
+nav li{cursor:pointer;font-weight:600;}
+nav li:hover{color:#22d3ee;}
+.toggle{cursor:pointer;background:#8b5cf6;padding:6px 12px;border-radius:6px;}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;}
+.hamburger div{width:25px;height:3px;background:#fff;border-radius:2px;transition:0.3s;}
+@media(max-width:700px){
+nav ul{display:none;flex-direction:column;width:100%;background:#000a;position:absolute;top:60px;left:0;}
+nav ul.show{display:flex;}
+.hamburger{display:flex;}
+}
+
+/* ------------------- HEADER ------------------- */
+header{height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:40px;}
+.profile{width:150px;height:150px;border-radius:50%;border:4px solid #8b5cf6;object-fit:cover;}
+header h1{font-size:48px;background:linear-gradient(90deg,#8b5cf6,#ec4899,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+#typing{font-size:20px;margin-top:10px;}
+@media(max-width:900px){header h1{font-size:36px;}.profile{width:120px;height:120px;}}
+@media(max-width:600px){header h1{font-size:28px;}}
+
+/* ------------------- CONTAINER ------------------- */
+.container{max-width:1100px;margin:auto;padding:100px 20px;width:90%;}
+.section-title{font-size:28px;border-bottom:2px solid #8b5cf6;display:inline-block;margin-bottom:20px;}
+
+/* ------------------- SKILLS ------------------- */
+.skill-bar{background:#333;height:15px;border-radius:10px;margin-bottom:15px;}
+.skill-progress{background:#8b5cf6;height:100%;width:0;transition:1s;}
+
+/* ------------------- TIMELINE ------------------- */
+.timeline{position:relative;margin:20px 0;padding-left:40px;}
+.timeline::before{content:"";position:absolute;top:0;left:18px;width:4px;height:100%;background:#8b5cf6;}
+.timeline-item{position:relative;margin-bottom:20px;}
+.timeline-item time{font-weight:bold;display:block;margin-bottom:5px;color:#22d3ee;}
+.timeline-item p{margin:0;}
+
+/* ------------------- PROJECTS ------------------- */
+.project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
+.card{background:#ffffff10;border-radius:12px;overflow:hidden;transition:0.4s;}
+.card:hover{transform:translateY(-10px);}
+.card img{width:100%;height:150px;object-fit:cover;}
+.card-content{padding:15px;}
+
+/* ------------------- BUTTONS ------------------- */
+.btn{display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:#8b5cf6;padding:8px 12px;border-radius:6px;color:white;text-decoration:none;font-weight:600;transition:0.3s;}
+.btn i{font-size:16px;}
+.btn:hover{background:#22d3ee;color:#000;}
+
+/* ------------------- SERVICES ------------------- */
+.services ul{list-style:disc;padding-left:20px;}
+
+/* ------------------- CLIENTS ------------------- */
+.clients{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;text-align:center;}
+.clients img{width:100%;max-width:250px;height:150px;object-fit:cover;border-radius:10px;}
+
+/* ------------------- TESTIMONIALS ------------------- */
+.testimonial{background:#ffffff10;padding:20px;border-radius:10px;margin-bottom:15px;}
+
+/* ------------------- CONTACT ------------------- */
+.contact-card{text-align:center;padding:20px;background:#ffffff10;border-radius:10px;}
+.contact-card .social-icons{display:flex;justify-content:center;gap:15px;margin-top:10px;}
+.contact-card .social{display:flex;width:50px;height:50px;border-radius:50%;align-items:center;justify-content:center;background:#ffffff10;color:white;font-size:24px;transition:0.3s;}
+.contact-card .social:hover{transform:scale(1.2);}
+.contact-card form input,.contact-card form textarea{padding:8px;width:80%;margin:5px 0;}
+
+/* ------------------- FOOTER ------------------- */
+footer{text-align:center;padding:20px;border-top:1px solid #8b5cf6;}
+
+/* ------------------- ANIMATION ------------------- */
+[data-animate]{opacity:0;transform:translateY(50px);transition:0.7s ease;}
+[data-animate].animate{opacity:1;transform:translateY(0);}
+
+/* ------------------- RESPONSIVE ------------------- */
+@media(max-width:600px){nav{flex-direction:column;gap:10px;}nav ul{flex-wrap:wrap;justify-content:center;gap:10px;}.project-grid,.clients{grid-template-columns:1fr;}.btn{width:100%;justify-content:center;}}
+</style>
+
+</head>
+<body>
+
+<div id="tsparticles"></div>
+<div class="cursor" id="cursor"></div>
+
+<nav>
+<h2>Portfolio</h2>
+<div class="hamburger" id="hamburger"><div></div><div></div><div></div></div>
+<ul id="nav-menu">
+<li onclick="scrollToSection('about')">About</li>
+<li onclick="scrollToSection('skills')">Skills</li>
+<li onclick="scrollToSection('technical-skills')">Technical Skills</li>
+<li onclick="scrollToSection('soft-skills')">Soft Skills</li>
+<li onclick="scrollToSection('journey')">Journey</li>
+<li onclick="scrollToSection('projects')">Projects</li>
+<li onclick="scrollToSection('services')">Services</li>
+<li onclick="scrollToSection('clients')">Clients</li>
+<li onclick="scrollToSection('contact')">Contact</li>
+</ul>
+<div class="toggle" onclick="toggleMode()">Mode</div>
+</nav>
+
+<header>
+<img src="profile.JPG" class="profile">
+<h1>Deepak Rawat</h1>
+<p id="typing"></p>
+</header>
+
+<div class="container">
+<!-- About Section -->
+<section id="about" data-animate>
+<h2 class="section-title">About Me</h2>
+<p>Hello! I'm <b>Deepak Rawat</b>,Motivated and detail-oriented BCA student with strong proficiency in programming languages such as C, C++, and JavaScript, along with hands-on experience in front-end technologies including HTML, CSS, and React. Skilled in developing responsive, dynamic, and user-friendly web applications with a focus on performance and clean code practices.
+
+Demonstrates effective team leadership and collaboration skills, with the ability to communicate ideas clearly and contribute positively in group projects. Adept at problem-solving, logical thinking, and adapting quickly to new technologies and development environments.
+
+Passionate about continuous learning and building innovative solutions through practical implementation. Committed to delivering high-quality work and eager to leverage technical skills and leadership abilities to contribute to impactful projects while growing as a professional web developer.</p>
+<a href="Deepak_Rawat_Resume.pdf" download class="btn"><i class="fa-solid fa-download"></i> Download Resume</a>
+</section>
+
+<!-- Skills Section -->
+
+<section id="skills" data-animate>
+<h2 class="section-title">Skills</h2>
+HTML<div class="skill-bar"><div class="skill-progress" data-level="95"></div></div>
+CSS<div class="skill-bar"><div class="skill-progress" data-level="90"></div></div>
+JavaScript<div class="skill-bar"><div class="skill-progress" data-level="85"></div></div>
+React<div class="skill-bar"><div class="skill-progress" data-level="75"></div></div>
+Communication<div class="skill-bar"><div class="skill-progress" data-level="90"></div></div>
+AI Tools<div class="skill-bar"><div class="skill-progress" data-level="80"></div></div>
+Leadership<div class="skill-bar"><div class="skill-progress" data-level="85"></div></div>
+Responsive<div class="skill-bar"><div class="skill-progress" data-level="90"></div></div>
+C<div class="skill-bar"><div class="skill-progress" data-level="85"></div></div>
+C++<div class="skill-bar"><div class="skill-progress" data-level="90"></div></div>
+</section>
+
+<!-- Technical Skills Section -->
+
+<section id="technical-skills" data-animate>
+<h2 class="section-title">Technical Skills</h2>
+<ul>
+<li>Programming Languages: C, C++</li>
+<li>Web Technologies: HTML, CSS, JavaScript</li>
+<li>Frameworks & Libraries: React.js</li>
+<li>Tools: VS Code, Git (Basic)</li>
+<li>Other Skills: Responsive Design, Debugging</li>
+</ul>
+</section>
+
+<!-- Soft Skills Section -->
+
+<section id="soft-skills" data-animate>
+<h2 class="section-title">Soft Skills</h2>
+<ul>
+<li>Communication Skills</li>
+<li>Leadership</li>
+<li>Team Collaboration</li>
+<li>Problem Solving</li>
+<li>Time Management</li>
+</ul>
+</section>
+
+<!-- Journey Section -->
+
+<section id="journey" data-animate>
+<h2 class="section-title">My Journey</h2>
+<div class="timeline">
+<div class="timeline-item"><time>2023</time><p>Started learning Web Development</p></div>
+<div class="timeline-item"><time>2024</time><p>Built first websites using HTML, CSS, JavaScript</p></div>
+<div class="timeline-item"><time>2025 - present</time><p>Created React projects and business websites</p></div>
+<div class="timeline-item"><time>2026 - present</time><p>Working as a Freelance Frontend Developer</p></div>
+</div>
+</section>
+
+<!-- Projects Section -->
+
+<section id="projects" data-animate>
+<h2 class="section-title">Projects</h2>
+<div class="project-grid">
+<div class="card"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa"><div class="card-content"><h3>Real Estate</h3><a href="https://01-realstate.vercel.app" class="btn">View</a></div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b"><div class="card-content"><h3>Laboratory</h3><a href="https://mahaluxmilab.com/" class="btn">View</a></div></div>
+<div class="card"><img src="dikota.jpeg"><div class="card-content"><h3>DIKOTA</h3><a href="https://dikota-all.vercel.app/" class="btn">View</a></div></div>
+</div>
+</section>
+
+<!-- Services Section -->
+
+<section id="services" class="services" data-animate>
+<h2 class="section-title">Services</h2>
+<ul>
+<li>Business Website Development</li>
+<li>Ecommerce Website</li>
+<li>React Web Applications</li>
+<li>Landing Page Design</li>
+<li>Website Redesign</li>
+</ul>
+</section>
+
+<!-- Clients Section -->
+
+<section id="clients" data-animate>
+<h2 class="section-title">Clients</h2>
+<div class="clients">
+<img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf">
+<img src="https://images.unsplash.com/photo-1616587226960-4a03badbe8bf">
+<img src="2.jpg">
+</div>
+</section>
+
+<!-- Testimonials Section -->
+
+<section data-animate>
+<h2 class="section-title">Testimonials</h2>
+<div class="testimonial">Great developer. Delivered website very fast.</div>
+<div class="testimonial">Professional design and smooth website.</div>
+</section>
+
+<!-- Contact Section -->
+
+<section id="contact" data-animate>
+<h2 class="section-title">Get in Touch</h2>
+<div class="contact-card">
+<p>Interested in collaborating? Reach me on:</p>
+<div class="social-icons">
+<a href="mailto:rawatdeepak01239@gmail.com" target="_blank" class="social" style="--color:#D44638;"><i class="fa-solid fa-envelope"></i></a>
+<a href="https://www.linkedin.com/in/deepak-rawat-44920235a" target="_blank" class="social" style="--color:#0077B5;"><i class="fa-brands fa-linkedin"></i></a>
+<a href="https://wa.me/919817455271" target="_blank" class="social" style="--color:#25D366;"><i class="fa-brands fa-whatsapp"></i></a>
+<a href="https://www.facebook.com/share/1KDxBo4DXe/" target="_blank" class="social" style="--color:#1877F2;"><i class="fa-brands fa-facebook"></i></a>
+<a href="https://www.instagram.com/dikota_13?igsh=MTB3MzFsdmtkYnds" target="_blank" class="social" style="--color:#E1306C;"><i class="fa-brands fa-instagram"></i></a>
+<a href="https://youtube.com/@dikotas?si=tSm9Q7IRHbwbzfVm" target="_blank" class="social" style="--color:#FF0000;"><i class="fa-brands fa-youtube"></i></a>
+</div>
+
+<form id="contact-form" style="margin-top:20px;">
+<input type="text" id="name" placeholder="Your Name" required>
+<input type="email" id="email" placeholder="Your Email" required>
+<textarea id="message" placeholder="Your Message" required></textarea>
+<br>
+<button type="submit" class="btn"><i class="fa-solid fa-paper-plane"></i></button>
+</form>
+</div>
+</section>
+
+</div>
+<footer>© 2026 Deepak Portfolio</footer>
+
+<script>
+let lastScroll=0;
+const navbar=document.querySelector("nav");
+window.addEventListener("scroll",()=>{let currentScroll=window.pageYOffset;if(currentScroll>lastScroll){navbar.style.top="-90px";}else{navbar.style.top="0";}lastScroll=currentScroll;});
+
+function toggleMode(){document.body.classList.toggle("light");}
+
+const text="Frontend Developer | React Developer";
+let i=0;
+function type(){if(i<text.length){document.getElementById("typing").innerHTML+=text.charAt(i);i++;setTimeout(type,70);}}type();
+
+document.querySelectorAll(".skill-progress").forEach(bar=>{bar.style.width=bar.dataset.level+"%";});
+
+const cursor=document.getElementById("cursor");
+document.addEventListener("mousemove",(e)=>{cursor.style.left=e.clientX+"px";cursor.style.top=e.clientY+"px";});
+
+tsParticles.load("tsparticles",{particles:{number:{value:80},color:{value:["#8b5cf6","#22d3ee"]},move:{enable:true,speed:1.5},links:{enable:true,color:"#8b5cf6"}}});
+
+const hamburger=document.getElementById("hamburger");
+const navMenu=document.getElementById("nav-menu");
+hamburger.addEventListener("click",()=>{navMenu.classList.toggle("show");hamburger.classList.toggle("active");});
+document.querySelectorAll("#nav-menu li").forEach(item=>{item.addEventListener("click",()=>{navMenu.classList.remove("show");hamburger.classList.remove("active");});});
+
+const animatedElems=document.querySelectorAll("[data-animate]");
+function animateOnScroll(){animatedElems.forEach(el=>{const top=el.getBoundingClientRect().top;const windowHeight=window.innerHeight;if(top<windowHeight-100){el.classList.add("animate");}});}
+window.addEventListener("scroll",animateOnScroll);
+window.addEventListener("load",animateOnScroll);
+
+document.getElementById("contact-form").addEventListener("submit",(e)=>{
+e.preventDefault();
+const name=document.getElementById("name").value;
+const email=document.getElementById("email").value;
+const message=document.getElementById("message").value;
+const waMessage=`Hello, my name is ${name}. Email: ${email}. Message: ${message}`;
+const url=`https://wa.me/919817455271?text=${encodeURIComponent(waMessage)}`;
+window.open(url,"_blank");
+});
+
+function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:"smooth"});}
+</script>
+
+</body>
+</html>
